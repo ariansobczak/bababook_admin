@@ -1,0 +1,54 @@
+<div class="animated fadeIn">
+    <div class="row" ng-controller="dashCtrl">
+        <!-- <div class="col-sm-12 p-2">
+            <input type="text" placeholder="Search ..." class="form-control" aria-label="Large" ng-model="filterBook" aria-describedby="inputGroup-sizing-sm">
+        </div> -->
+        <div class="col-md-3" ng-repeat="lend in lended">
+            <div class="card" ng-mouseover="currentLend = lend" ng-mouseleave="currentLend = false">
+                <p class="lend-actions" ng-show="lend == currentLend">
+                    <!-- <div class="btn-group btn-block" role="group" aria-label="Basic example"> -->
+                    <button type="button" class="btn btn-warning btn-block" ng-click="sendNotification(lend)"><i class="icon-speech"></i>&nbsp;
+                        Notify</button>
+                    <button type="button" class="btn btn-primary btn-block" ng-disabled="lend.extended || isReturnExpired(lend.returnDate)"
+                        ng-click="extend(lend)"><i class="icon-calendar"></i>&nbsp; Extend</button>
+                    <!-- </div> -->
+                    <button type="button" class="btn btn-danger btn-block" ng-click="returnBook(lend)"><i class="icon-note"></i>&nbsp;
+                        Return</button>
+                </p>
+                <!-- <div class="card-header">Header</div> -->
+                <img class="card-img-top" ng-src="{{lend.book.cover}}" alt="{{lend.book.title}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{lend.book.title}} <small class="text-muted">{{lend.book.author}}</small></h5>
+                    <p class="card-text">
+                        <!-- <span class="text-muted">{{lend.book.author}}</span> -->
+                        <!-- <div data-angular-rating-icons read-only color-base="gray" icon-size ng-model="lend.book.starCount"></div> -->
+                        <div class="avatar">
+                            <img crossorigin=”” ng-src="{{lend.user.photoURL}}" class="img-avatar" alt="{{lend.user.displayName}}">
+                        </div>
+                        <strong class="text-primary">&nbsp; {{lend.user.displayName}}</strong>
+                    </p>
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <!-- <strong>{{ calculateDays(lend.returnDate) }}</strong> -->
+                        </div>
+                        <div class="float-right">
+                            <small ng-class="{
+                                'text-danger': isReturnExpired(lend.returnDate) === true, 
+                                'text-muted' : isReturnExpired(lend.returnDate) === false}">
+                                <i class="icon-calendar"></i>&nbsp; Return {{returnUntil(lend.returnDate)}}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar" ng-class="{ 'bg-info'    : lend.percent <= 25,
+                              'bg-success' : lend.percent > 25 && lend.percent <= 50,
+                              'bg-warning' : lend.percent > 50 && lend.percent <= 75,
+                              'bg-danger'  : lend.percent > 75 }"
+                            value="{{ lend.percent }}" role="progressbar" style="width: {{ lend.percent }}%"
+                            aria-valuenow="{{ lend.percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

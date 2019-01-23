@@ -1,0 +1,36 @@
+<aside class="aside-menu" ng-controller="headerCtrl">
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="timeline" role="tabpanel">
+      <div class="callout m-0 py-2 text-muted text-center bg-light text-uppercase">
+        <small><b>Requests</b></small>
+      </div>
+      <hr class="transparent mx-3 my-0">
+      <div ng-repeat="n in notifications | orderBy:'created':true">
+      <div class="callout callout-primary m-0 py-3" ng-if="n.notificationType === 'requestExtend'">
+        <a class="text-danger" ng-click="removeNotification(n)"><i class="icon-trash"></i></a>
+        <small class="text-muted mr-3">{{ n.created | date: "hh:mm:ss a, EEE, dd MMM yyyy"}} </small>
+        <div class="avatar float-right">
+          <img ng-src="{{n.lend.user.photoURL}}" class="img-avatar" alt="">
+        </div>
+        <div>{{n.lend.book.title}}
+          <strong>{{n.lend.user.displayName}}</strong>
+        </div>
+        <small class="text-muted"><i class="icon-calendar"></i>&nbsp; Current return <strong>{{n.lend.returnDate | date: "EEE, dd MMM yyyy"}}</strong></small>
+        <button type="button" class="btn btn-primary btn-block" ng-disabled="n.lend.extended || isReturnExpired(n.lend.returnDate)" ng-click="extend(n)"><i class="icon-calendar"></i>&nbsp; Extend</button>
+      </div>
+      <div class="callout callout-success m-0 py-3" ng-if="n.notificationType === 'requestBorrow'">
+        <a class="text-danger" ng-click="removeNotification(n)"><i class="icon-trash"></i></a>
+        <small class="text-muted mr-3">{{ n.created | date: "hh:mm:ss a, EEE, dd MMM yyyy"}} </small>
+        <div class="avatar float-right">
+          <img ng-src="{{n.user.photoURL}}" class="img-avatar" alt="">
+        </div>
+        <div>{{n.book.title}}
+          <strong>{{n.user.displayName}}</strong>
+        </div>
+        <button type="button" class="btn btn-success btn-block" ng-disabled="n.lended" ng-click="borrow(n)"><i class="icon-book-open"></i>&nbsp; Borrow</button>
+      </div>
+      <hr class="mx-3 my-0">
+      </div>
+    </div>
+</aside>

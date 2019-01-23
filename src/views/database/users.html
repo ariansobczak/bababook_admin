@@ -1,0 +1,52 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-accent-warning" ng-controller="usersCtrl">
+        <!-- <div class="card-header">
+          <i class="icon-book-open"></i> Users
+        </div> -->
+        <div class="card-body">
+          <h3>Users</h3>
+          <table class="table table-hover" ng-table="users" show-filter="false">
+            <tbody>
+              <tr ng-repeat="user in $data">
+                <td class="text-center">
+                  <div class="avatar">
+                    <img crossorigin=”” ng-src="{{user.photoURL}}" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <span class="avatar-status" ng-class="{ 'badge-success' : user.status == 'active',
+      'badge-warning' : user.status == 'away',
+      'badge-danger'  : user.status == 'busy',
+      'badge-secondary' : user.status == 'offline' }"></span>
+                  </div>
+                </td>
+                <td class="text-center align-middle" title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+                  <div>{{ user.displayName }}</div>
+                </td>
+                <td class="text-center align-middle" title="'Email'" filter="{ email: 'text'}" sortable="'email'">
+                    <div>{{ user.email }}</div>
+                  </td>
+                <td class="text-center align-middle" title="'Registered'" filter="{ created: 'text'}" sortable="'created'">
+                    <div>{{ moment(user.created).format('DD MMM YYYY') }}</div>
+                </td>
+                <td class="text-center align-middle" title="'Last login'" filter="{ lastlogin: 'text'}" sortable="'lastlogin'">
+                    <div>{{ moment(user.lastlogin).format('DD MMM YYYY') }}</div>
+                </td>
+                <!-- <td class="text-center align-middle" title="'Provider'">
+                    <div>{{ user.providerData.providerId }}</div>
+                </td> -->
+                <!-- <td class="text-right">
+                  <div class="actions">
+                    <button type="button" class="btn btn-link text-muted" data-vivaldi-spatnav-clickable="1"><i class="icon-eye"></i></button>
+                    <button type="button" class="btn btn-link text-primary" data-vivaldi-spatnav-clickable="1"><i class="icon-bubble"></i></button>
+                    <button type="button" class="btn btn-link text-danger" data-vivaldi-spatnav-clickable="1"><i class="icon-ban"></i></button>
+                  </div>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+</div>

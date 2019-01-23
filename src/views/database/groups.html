@@ -1,0 +1,24 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-accent-warning" ng-controller="groupsCtrl">
+        <div class="card-header">
+          <i class="icon-book-open"></i> Groups
+        </div>
+        <div class="card-body">
+            <ui-select ng-model="selectedItem">
+                <ui-select-match>
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item in (itemArray | filter: $select.search) track by $index">
+                    <span ng-bind="item.name"></span>
+                </ui-select-choices>
+              </ui-select>
+              {{selectedItem}}
+        </div>
+      </div>
+    </div>
+
+    <!--/.col-->
+  </div>
+</div>

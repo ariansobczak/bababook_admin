@@ -1,0 +1,107 @@
+<div class="animated fadeIn">
+  <div class="row" ng-controller="booksCtrl">
+    <div class="col-md-12">
+      <div class="card card-accent-warning">
+        <!-- <div class="card-header">
+          <i class="icon-book-open"></i> Books
+        </div> -->
+        <div class="card-body">
+          <table class="table table-hover table-borderless table-striped table-sm" ng-table="books"
+            show-filter="true">
+            <tbody>
+              <tr class="ng-table-group" ng-repeat-start="group in $groups">
+                <td colspan="9">
+                  <a href="" ng-click="group.$hideRows = !group.$hideRows">
+                    <span class="fa" ng-class="{ 'fa-chevron-right': group.$hideRows, 'fa-chevron-down': !group.$hideRows }"></span>
+                    <strong>{{ group.value }}</strong>
+                  </a>
+                </td>
+              </tr>
+              <tr ng-hide="group.$hideRows" ng-repeat="book in group.data" ng-repeat-end>
+                <td class="text-center align-middle" style="width:50px">
+                  <img ng-src="{{book.cover}}" height="60" class="rounded mx-auto d-block" alt="admin@bootstrapmaster.com">
+                  <span class="avatar-status" ng-class="{ 'badge-success' : true }"></span>
+                </td>
+                <td title="'Title'" filter="{ title: 'text'}" sortable="'title'" class="align-middle"><strong>{{book.title}}</strong></td>
+                <td groupable="'author'" title="'Author'" filter="{ author: 'text'}" sortable="'author'" class="align-middle">{{book.author}}</td>
+                <td title="'Year'" filter="{ year: 'number'}" sortable="'year'" class="align-middle" style="width: 50px;">{{book.year}}</td>
+                <td title="'Genre'" filter="{ genre: 'text'}" sortable="'genre'" class="align-middle" groupable="'genre'"><span class="badge badge-pill badge-primary">{{book.genre}}</span></td>
+                <td title="'ISBN'" filter="{ ISBN: 'text'}" sortable="'ISBN'" class="align-middle">{{book.ISBN}}</td>
+                <td title="'Language'" sortable="'lang'" class="text-center align-middle">
+                  <i class="h4 mb-0 flag-icon flag-icon-{{ book.lang }}" title="{{ book.lang }}" id="{{ book.lang }}"></i>
+                </td>
+                </td>
+                <td title="'Publisher'" filter="{ publisher: 'text'}" sortable="'publisher'" class="align-middle">{{book.publisher}}</td>
+                <td title="'Popular'" filter="{ starCount: 'number'}" sortable="'starCount'" class="align-middle">
+                  <div data-angular-rating-icons read-only=true color-base="gray" ng-model="book.starCount"></div>
+                </td>
+                <td title="'Current'" class="text-center align-middle" style="width: 200px;">
+                  <div ng-if="book.landed" class="avatar">
+                    <img ng-src="img/avatars/1.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <span class="badge badge-pill badge-primary">{{date}}</span>
+                  </div>
+                  <button ng-if="!book.lended" type="button" class="btn btn-outline-primary" ng-click="borrowModal(book)"><span
+                      class="icon-book-open"></span><span> Lend</span></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="borrow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{choosedBook.title}} <br><small>{{choosedBook.author}}</small></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Choose a user to lend a book</p>
+            <!-- <div class="dropdown-menu">
+              <a class="dropdown-item" ng-repeat="user in users" ng-class="{'active' : choosedUser === user }">
+                <div class="avatar">
+                  <img ng-src="img/avatars/{{ user.avatar }}" class="img-avatar" alt="admin@bootstrapmaster.com">
+                  <span class="avatar-status" ng-class="{ 'badge-success' : user.status == 'active',
+            'badge-warning' : user.status == 'away',
+            'badge-danger'  : user.status == 'busy',
+            'badge-secondary' : user.status == 'offline' }"></span>
+                </div>
+              </a>
+            </div> -->
+            <table class="table table-hover" ng-table="users" show-filter="false">
+            <tbody>
+                <tr ng-repeat="user in $data" ng-class="{'table-primary' : choosedUser === user }" ng-click="chooseUser(user)">
+                  <td class="text-center">
+                    <div class="avatar">
+                      <img crossorigin=”” ng-src="{{user.photoURL}}" class="img-avatar" alt="admin@bootstrapmaster.com">
+                      <span class="avatar-status" ng-class="{ 'badge-success' : user.status == 'active',
+        'badge-warning' : user.status == 'away',
+        'badge-danger'  : user.status == 'busy',
+        'badge-secondary' : user.status == 'offline' }"></span>
+                    </div>
+                  </td>
+                  <td class="text-center align-middle" title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+                    <div>{{ user.displayName }}</div>
+                  </td>
+                  <td class="text-center align-middle" title="'Registered'" filter="{ created: 'text'}" sortable="'created'">
+                      <div>{{ moment(user.created).format('DD MMM YYYY') }}</div>
+                  </td>
+                  <td class="text-center align-middle" title="'Last login'" filter="{ lastlogin: 'text'}" sortable="'lastlogin'">
+                      <div>{{ moment(user.lastlogin).format('DD MMM YYYY') }}</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="borrow(choosedBook, choosedUser)">Lend</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

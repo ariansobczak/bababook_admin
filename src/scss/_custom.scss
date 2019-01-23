@@ -1,0 +1,60 @@
+// Here you can add other styles
+
+.table-borderless td {
+    border: none;
+}
+
+tr.ng-table-group {
+    background: $primary !important;
+    color: $white !important;
+}
+
+tr.ng-table-group a {
+    color: $white !important;
+}
+
+tr.ng-table-group a:hover {
+    text-decoration: none !important;
+}
+
+.select2 > .select2-choice.ui-select-match {
+    /* Because of the inclusion of Bootstrap */
+    height: 29px;
+  }
+
+  .selectize-control > .selectize-dropdown {
+    top: 36px;
+  }
+
+  .scrolling-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+
+    // transform: rotate(-90deg);
+    // transform-origin: right top;
+    // transform:rotate(-90deg) translateY(-100px);
+    .card {
+      display: inline-block;
+
+    //     transform: rotate(90deg);
+    // transform-origin: right top;
+    }
+  }
+
+  .scrolling-wrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scrolling-wrapper {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  p.lend-actions {
+    position: absolute;
+    width: 100%;
+    padding: 8px;
+    background: rgba(255,255,255,0.9);
+}
